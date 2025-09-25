@@ -1,0 +1,72 @@
+<div class="container mt-4">
+  <h3>Portfolio Holdings</h3>
+
+  <button class="btn btn-primary mb-3" routerLink="/portfolio/add">
+    Add Holding
+  </button>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Fund Name</th>
+        <th>NAV Name</th>
+        <th>Fund Type</th>
+        <th>Units</th>
+        <th>Current Value</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let h of holdings()">
+        <td>{{ h.mfName }}</td>
+        <td>{{ h.navName }}</td>
+        <td>{{ h.fundType }}</td>
+
+        <!-- Inline editing -->
+        <td *ngIf="editingId !== h.id">{{ h.units }}</td>
+        <td *ngIf="editingId === h.id">
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="editUnits"
+            min="0.000001"
+            step="0.000001"
+          />
+        </td>
+
+        <td>{{ h.units * (h.latestValue || 0) | number : "1.2-2" }}</td>
+
+        <td>
+          <span *ngIf="!h.latestValue" class="text-warning">⚠ NAV missing</span>
+        </td>
+
+        <td>
+          <button
+            *ngIf="editingId !== h.id"
+            class="btn btn-sm btn-warning me-2"
+            (click)="startEdit(h)"
+          >
+            Edit
+          </button>
+          <button
+            *ngIf="editingId === h.id"
+            class="btn btn-sm btn-success me-2"
+            (click)="saveEdit(h)"
+          >
+            Save
+          </button>
+          <button
+            *ngIf="editingId === h.id"
+            class="btn btn-sm btn-secondary me-2"
+            (click)="cancelEdit()"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="deleteHolding(h)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

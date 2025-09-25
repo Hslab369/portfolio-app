@@ -1,59 +1,87 @@
-# PortfolioApp
+## ✅ Todo Steps for Portfolio Management Screen (Angular 19)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+### 1. Setup & Structure
 
-## Development server
+* [-] Create feature module: `portfolio/`
+* [-] Add routing: `/portfolio` route guarded by `auth.guard.ts`
+* [-] Generate base components:
 
-To start a local development server, run:
+  * `portfolio-list`
+  * `add-holding`
+  * `edit-holding`
+* [-] Create `portfolio.service.ts` to call backend APIs
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 2. Portfolio List Screen
 
-## Code scaffolding
+* [-] Table to show holdings:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+  * Fund Name
+  * Fund Type
+  * NAV Name
+  * Units
+  * Current Value (from API)
+* [-] Action buttons per row:
 
-```bash
-ng generate component component-name
-```
+  * Edit (inline form for units)
+  * Delete (confirmation → remove)
+* [-] "Add Holding" button → opens `add-holding` form
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+### 3. Add Holding Component
 
-## Building
+* [ ] Dropdowns for:
 
-To build the project run:
+  * `mfName`
+  * `fundType`
+  * `navName`
+* [ ] Input for `units`
+* [ ] Validation: units > 0
+* [ ] On submit → `portfolioService.addHolding()`
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 4. Edit Holding Component
 
-## Running unit tests
+* [ ] Inline row editing
+* [ ] Read-only: fundName, fundType, navName
+* [ ] Editable: units
+* [ ] Save → `portfolioService.updateHolding()`
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+### 5. Delete Holding
 
-## Running end-to-end tests
+* [ ] Delete action per row
+* [ ] Confirmation dialog
+* [ ] Call → `portfolioService.deleteHolding()`
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+### 6. Service Integration (`portfolio.service.ts`)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+* [ ] `getHoldings(): Observable<Holding[]>`
+* [ ] `addHolding(data: AddHoldingRequest)`
+* [ ] `updateHolding(id: number, data: UpdateHoldingRequest)`
+* [ ] `deleteHolding(id: number)`
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### 7. UI Polish
+
+* [ ] Use Angular Material table & form controls
+* [ ] Toast messages for success/error
+* [ ] Loading spinner for API calls
+* [ ] Handle API errors gracefully
+
+---
+
+### 8. Testing
+
+* [ ] Unit test components with mocked services
+* [ ] Verify validation rules (units > 0, no duplicate holdings)
+* [ ] Integration test with backend stub (optional)
+
+---

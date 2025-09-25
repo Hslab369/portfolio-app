@@ -1,0 +1,36 @@
+<div class="container mt-4" *ngIf="holding()">
+  <h3>Edit Holding</h3>
+
+  <form (ngSubmit)="saveEdit()" #editForm="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Fund Name</label>
+      <input type="text" class="form-control" [value]="holding()?.mfName" readonly />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">NAV Name</label>
+      <input type="text" class="form-control" [value]="holding()?.navName" readonly />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Fund Type</label>
+      <input type="text" class="form-control" [value]="holding()?.fundType" readonly />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Units</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="units"
+        name="units"
+        required
+        min="0.000001"
+        step="0.000001"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success me-2">Save</button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+  </form>
+</div>

@@ -1,0 +1,62 @@
+<div class="container mt-4">
+  <h3>Add New Holding</h3>
+
+  <form (ngSubmit)="addHolding()" #holdingForm="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Fund Name</label>
+      <select class="form-select" [(ngModel)]="mfName" name="mfName" required>
+        <option value="" disabled>Select fund</option>
+        <option *ngFor="let nav of navList()" [value]="nav.mfName">
+          {{ nav.mfName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">NAV Name</label>
+      <select class="form-select" [(ngModel)]="navName" name="navName" required>
+        <option value="" disabled>Select NAV</option>
+        <option *ngFor="let nav of navList()" [value]="nav.navName">
+          {{ nav.navName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Fund Type</label>
+      <select
+        class="form-select"
+        [(ngModel)]="fundType"
+        name="fundType"
+        required
+      >
+        <option value="Equity">Equity</option>
+        <option value="Debt">Debt</option>
+        <option value="Hybrid">Hybrid</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Units</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="units"
+        name="units"
+        required
+        min="0.000001"
+        step="0.000001"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary me-2">Add</button>
+    <button
+      type="button"
+      class="btn btn-secondary"
+      routerLink="/portfolio/list"
+    >
+      Cancel
+    </button>
+  </form>
+</div>
